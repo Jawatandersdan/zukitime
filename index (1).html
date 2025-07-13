@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zuki Power</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    button {
+      background-color: #222;
+      color: white;
+      border: 2px solid #fff;
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #fff;
+      color: #111;
+    }
+
+    #zuki-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px 20px 20px;
+    }
+
+    .zuki {
+      margin: 5px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      animation: fadeIn 1s ease forwards, rainbow 5s infinite linear;
+      opacity: 0;
+    }
+
+    .zuki:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s;
+      filter: drop-shadow(0 0 10px white);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes rainbow {
+      0% { color: red; }
+      16% { color: orange; }
+      32% { color: yellow; }
+      48% { color: green; }
+      64% { color: blue; }
+      80% { color: indigo; }
+      100% { color: violet; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="voegZukiToe(100)">MEER ZUKI</button>
+    <button onclick="opnieuw()">OPNIEUW</button>
+  </div>
+
+  <div id="zuki-container"></div>
+
+  <script>
+    let totaalZuki = 0;
+
+    function voegZukiToe(aantal) {
+      const container = document.getElementById('zuki-container');
+      for (let i = 0; i < aantal; i++) {
+        const span = document.createElement('span');
+        span.className = 'zuki';
+        span.textContent = 'zuki';
+        span.style.animationDelay = ((totaalZuki + i) * 0.01) + 's';
+        container.appendChild(span);
+      }
+      totaalZuki += aantal;
+    }
+
+    function opnieuw() {
+      const container = document.getElementById('zuki-container');
+      container.innerHTML = '';
+      totaalZuki = 0;
+      voegZukiToe(100); // begin opnieuw met 100 zuki’s
+    }
+
+    // Start met 100 zuki’s
+    voegZukiToe(100);
+  </script>
+</body>
+</html>
